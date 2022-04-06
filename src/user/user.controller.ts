@@ -1,12 +1,17 @@
+import JwtAuthGuard  from 'src/auth/jwt-auth.guard';
 import { ApiTags, ApiCookieAuth } from '@nestjs/swagger';
 import { IUserDto } from './dtos/user.dto';
 import { ICreateUserDto } from './dtos/create-user.dto';
 import { UpdateUserDto } from './dtos/update-user.dto';
 import { UserService } from './user.service';
-import { Body, Controller, Get,  Param, Patch, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Patch, Post, UseGuards } from '@nestjs/common';
 import { Serialize } from 'src/interceptor/serialize.interceptor';
+import RoleGuard from 'src/auth/role.guard';
+import { UserRole } from 'src/common/userRole';
 
 @Controller('user')
+@UseGuards(JwtAuthGuard)
+@UseGuards(RoleGuard(UserRole.ADMIN))
 @ApiCookieAuth()
 @ApiTags('User')
 @Serialize(IUserDto)

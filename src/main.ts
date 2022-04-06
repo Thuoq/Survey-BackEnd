@@ -25,7 +25,12 @@ async function bootstrap() {
     }
   })
  
-  app.enableCors();
+  app.enableCors({
+    credentials:true,
+    origin:true,
+    allowedHeaders: 'Content-Type, Authorization',
+    methods: 'GET, PUT, POST, DELETE',
+  });
   await app.listen(3000);
 }
 runInCluster(bootstrap);
