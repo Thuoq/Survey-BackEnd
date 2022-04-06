@@ -51,9 +51,8 @@ export class UserService {
   // }
   async setCurrentRefreshToken(refreshTokenStr: string, userId: string) {
     try {
-       await this.update(userId,{refreshToken:{refreshToken:refreshTokenStr}}).then(res => {
-         
-       });
+      const hashToken = await bcrypt.hash(refreshTokenStr, 10);
+      await this.update(userId,{refreshToken:{refreshToken:hashToken}})
     } catch(err) { 
       console.error(err)
     }
@@ -61,10 +60,12 @@ export class UserService {
   }
   async getUserIfRefreshTokenMatches(refreshToken:string, userId:string) {
     const user = await this.findOneById(userId) 
+    
     const isRefreshTokenMatching = await bcrypt.compare(
       refreshToken,
       user.refreshToken.refreshToken
     );
+    console.log(isRefreshTokenMatching)
     if(isRefreshTokenMatching) { 
       return user;
     }
