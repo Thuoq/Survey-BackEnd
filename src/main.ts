@@ -34,7 +34,7 @@ async function bootstrap() {
     credentials:true,
     origin:true,
     allowedHeaders: 'Content-Type, Authorization',
-    methods: 'GET, PUT, POST, DELETE',
+    methods: 'GET, PUT, POST, DELETE, PATCH',
   });
   await app.listen(3000);
 }
