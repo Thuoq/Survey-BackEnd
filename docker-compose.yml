@@ -25,7 +25,6 @@ services:
       - docker.env
     networks:
       - postgres
-
 networks:
   postgres:
     driver: bridge

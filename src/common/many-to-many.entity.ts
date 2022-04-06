@@ -1,3 +1,4 @@
+import { User } from './../user/user.entity';
 import { Answer } from "src/answer/answer.entity";
 import { Question } from "src/question/question.entity";
 import { Survey } from "src/survey/survey.entity";
@@ -20,9 +21,14 @@ import { Versioning } from "./version.entity";
 
 
 @Entity()
-export class SurveyToQuestionDetail { 
-  // @PrimaryGeneratedColumn('uuid') id: string;
-  // @Column() result:boolean;
+export class Task { 
+   @PrimaryGeneratedColumn('uuid') id: string;
+  // @Column() pointSurvey:number;
+  // @Column() isFinished:boolean;
+  // @ManyToOne((type) => User,{
+
+  //})
+  // @Column() result:boolean; 
   // @Column() pointInQuestion: boolean;
   // @ManyToOne(() => Question)
   // question:Question
@@ -36,14 +42,14 @@ export class SurveyToQuestionDetail {
 @Entity()
 export class UserQuestionAnswer { 
   @PrimaryGeneratedColumn("uuid") id:string;
-  @ManyToOne(() => SurveyToQuestionDetail,{
-    eager:true 
-  })
-  questionDetail: SurveyToQuestionDetail
-  @Column() isRight: boolean;
-  // @OneToOne(() => QuestionChoices, {
-  //   eager:true
+  // @ManyToOne(() => SurveyToQuestionDetail,{
+  //   eager:true 
   // })
-  // choice: QuestionChoices
-  @Column(type => Versioning) versioning: Versioning
+  // questionDetail: SurveyToQuestionDetail
+  // @Column() isRight: boolean;
+  // // @OneToOne(() => QuestionChoices, {
+  // //   eager:true
+  // // })
+  // // choice: QuestionChoices
+  // @Column(type => Versioning) versioning: Versioning
 }

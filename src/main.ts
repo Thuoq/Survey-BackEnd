@@ -3,6 +3,7 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import * as cookieParser from 'cookie-parser';
 import {SwaggerModule,DocumentBuilder} from '@nestjs/swagger'
+import { runInCluster } from './runInCluster';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.use(cookieParser())
@@ -27,4 +28,4 @@ async function bootstrap() {
   app.enableCors();
   await app.listen(3000);
 }
-bootstrap();
+runInCluster(bootstrap);
