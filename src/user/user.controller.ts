@@ -10,8 +10,8 @@ import RoleGuard from 'src/auth/role.guard';
 import { UserRole } from 'src/common/userRole';
 
 @Controller('user')
-@UseGuards(JwtAuthGuard)
 @UseGuards(RoleGuard(UserRole.ADMIN))
+@UseGuards(JwtAuthGuard)
 @ApiCookieAuth()
 @ApiTags('User')
 @Serialize(IUserDto)

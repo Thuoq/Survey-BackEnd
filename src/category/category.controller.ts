@@ -11,7 +11,6 @@ import { UserRole } from 'src/common/userRole';
 
 @Controller('category')
 @Serialize(ICategory)
-@UseGuards(JwtAuthGuard)
 @ApiCookieAuth()
 @ApiTags("Category")
 export class CategoryController {
@@ -19,26 +18,30 @@ export class CategoryController {
   
   @Post()
   @UseGuards(RoleGuard(UserRole.ADMIN))
+  @UseGuards(JwtAuthGuard)
   async createCategory(@Body() body : ICreateCategory):Promise<ICategory> {
      return await this.categoryService.createCategory(body)
   }
+  @UseGuards(JwtAuthGuard)
   @Get()
   async getAllCategories():Promise<ICategory[]>{
     return await this.categoryService.getAllCategory()
   }
 
   @UseGuards(RoleGuard(UserRole.ADMIN))
+  @UseGuards(JwtAuthGuard)
   @Patch("/:id")
   async updateCategory(@Param("id") id:string,@Body() attrs: IUpdateCategory):Promise<ICategory> {
   
     return await this.categoryService.updateCategory(id,attrs);
   }
   @UseGuards(RoleGuard(UserRole.ADMIN))
+  @UseGuards(JwtAuthGuard)
   @Delete("/:id") 
   async deleteCategory(@Param("id") id:string):Promise<void> {
     await this.categoryService.deleteCategory(id);
   }
-  
+  @UseGuards(JwtAuthGuard)
   @Get("/:id")
   async getACategory(@Param("id") id:string):Promise<ICategory> {
     return await this.categoryService.findOneById(id);

@@ -13,8 +13,8 @@ import { UserRole } from 'src/common/userRole';
 
 @Controller('question')
 @Serialize(IQuestion)
-@UseGuards(JwtAuthGuard)
 @UseGuards(RoleGuard(UserRole.ADMIN))
+@UseGuards(JwtAuthGuard)
 @ApiCookieAuth()
 @ApiTags("Question")
 export class QuestionController {

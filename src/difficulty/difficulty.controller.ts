@@ -9,8 +9,8 @@ import { Controller, Get, Post, Body, Delete, Param, Patch, UseGuards } from '@n
 import { ICreateDifficulty } from './dtos/create-difficulty.dto';
 
 @Controller('difficulty')
-@UseGuards(JwtAuthGuard)
 @UseGuards(RoleGuard(UserRole.ADMIN))
+@UseGuards(JwtAuthGuard)
 @ApiCookieAuth()
 @ApiTags("Difficulty")
 export class DifficultyController {
