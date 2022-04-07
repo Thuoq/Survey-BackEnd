@@ -6,6 +6,7 @@ import { BeforeInsert, Column, Entity, JoinColumn, OneToMany, OneToOne, PrimaryG
 import { Exclude } from 'class-transformer';
 
 import {hash} from 'bcrypt'
+import { Assignment } from 'src/assignment/assignment.entity';
 @Entity()
 export class User { 
   @PrimaryGeneratedColumn("uuid") id: string 
@@ -37,6 +38,7 @@ export class User {
   @JoinColumn()
   refreshToken: RefreshToken;
 
-  // @OneToMany(() => Survey,(survey:Survey) => survey.owner)
+  @OneToMany(() => Assignment,(assignment:Assignment) => assignment.owner )
+  assignments: Assignment[]
   // surveys:Survey
 }

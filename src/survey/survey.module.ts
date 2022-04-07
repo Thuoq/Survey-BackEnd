@@ -11,6 +11,7 @@ import { SurveyService } from './survey.service';
 @Module({
   controllers: [SurveyController],
   providers: [SurveyService],
-  imports: [TypeOrmModule.forFeature([Survey]),CategoryModule,DifficultyModule,QuestionModule]
+  imports: [TypeOrmModule.forFeature([Survey]),CategoryModule,DifficultyModule,QuestionModule],
+  exports:[SurveyService]
 })
 export class SurveyModule {}
