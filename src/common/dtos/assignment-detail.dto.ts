@@ -6,6 +6,7 @@ export class IAssignmentDetail {
   @Expose()
   id: string;
   @Expose()
+  @Type(() => IQuestion)
   question:IQuestion
   @Expose()
   pointQuestion: number;

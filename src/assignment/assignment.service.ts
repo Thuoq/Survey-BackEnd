@@ -64,11 +64,9 @@ export class AssignmentService {
   async createAssignDetail(payload:ICreateSubmitAssignment,pointSurvey:number) {
     const assignmentDetailsPromise = await payload.data.map(async el =>  { 
       const {question,user_question_answers,amountQuestionIsRight} = await this.createUserQuestionAnswers(el);
-      const answersRightPromise = await question.answers.filter(async el => el.isAnswer)
-      const answersRight = await Promise.all(answersRightPromise)
+      const answersRight =  question.answers.filter(el  =>  el.isAnswer)
       const pointQuestion = amountQuestionIsRight/ answersRight.length
       pointSurvey+=pointQuestion;
-     
       return  {
         userQuestionAnswers:user_question_answers
         ,pointQuestion
