@@ -45,5 +45,4 @@ async function bootstrap() {
   const PORT = configService.get('PORT') ?? 3000;
   await app.listen(PORT);
 }
-// runInCluster(bootstrap);
-bootstrap()
+runInCluster(bootstrap);
