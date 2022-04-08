@@ -1,3 +1,7 @@
+import { UserQuestionAnswer } from 'src/common/user-question-answers.entity';
+import { AssignmentDetail } from 'src/common/assignment-detail.entity';
+import { AnswerModule } from './../answer/answer.module';
+import { QuestionModule } from './../question/question.module';
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { SurveyModule } from 'src/survey/survey.module';
@@ -7,7 +11,7 @@ import { AssignmentService } from './assignment.service';
 
 @Module({
   controllers: [AssignmentController],
-  imports:[ TypeOrmModule.forFeature([Assignment]),SurveyModule],
+  imports:[ TypeOrmModule.forFeature([Assignment]),SurveyModule,QuestionModule,AnswerModule],
   providers:[ AssignmentService]
 })
 export class AssignmentModule {}

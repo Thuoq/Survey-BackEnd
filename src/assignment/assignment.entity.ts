@@ -10,7 +10,7 @@ import { AssignmentDetail } from 'src/common/assignment-detail.entity';
 export class Assignment {
   @PrimaryGeneratedColumn("uuid") id:string;
   @Column({
-    type:'numeric',
+    type:'float',
     default:-1
   }) pointSurvey:number
   @Column({
@@ -31,6 +31,10 @@ export class Assignment {
   @JoinColumn()
   survey: Survey
 
-  @OneToMany(type => AssignmentDetail, (assignmentDetail:AssignmentDetail) => assignmentDetail.assignment)
+  @OneToMany(type => AssignmentDetail, (assignmentDetail:AssignmentDetail) => assignmentDetail.assignment , {
+    cascade:true,
+    eager:true
+  })
+  @JoinColumn() 
   assignmentDetails: AssignmentDetail[]
 }

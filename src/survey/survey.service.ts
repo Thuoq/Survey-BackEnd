@@ -6,6 +6,7 @@ import { Survey } from './survey.entity';
 import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+import { string } from '@hapi/joi';
 
 @Injectable()
 export class SurveyService {
@@ -26,9 +27,11 @@ export class SurveyService {
   async createSurvey(payload:ICreateSurvey) {
     const category = await this.categoryService.finOneByName(payload.category)
     const difficulty = await this.difficultyService.findOneDifficultyByName(payload.difficulty)
-    let questions = []
-    await Promise.all(payload.questions.map( async el => await this.questionService.findAQuestion(el.id))).then(el => questions = el)
-
+    let questionsPromise  =  payload.questions.map(async (el:string) => {
+      const ques = await this.questionService.findAQuestion(el);
+      return ques;
+    })
+    const questions = await Promise.all(questionsPromise)
     const survey = this.repoSurvey.create({name:payload.name,category,difficulty,questions})
     await this.repoSurvey.save(survey);
     return survey;

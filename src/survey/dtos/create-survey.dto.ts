@@ -9,5 +9,5 @@ export class ICreateSurvey {
   @IsString()
   category:string;
   @IsArray() 
-  questions: IQuestion[];
+  questions: string[];
 }

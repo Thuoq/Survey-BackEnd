@@ -1,3 +1,4 @@
+import { ConfigService } from '@nestjs/config';
 import { ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
@@ -12,6 +13,7 @@ async function bootstrap() {
       whitelist:true
     })
   )
+  const configService = app.get(ConfigService);
   const swaggerConfig = new DocumentBuilder().setTitle("API Survey")
   .setDescription("API Cho ae JS09")
   .setVersion("1.0")
@@ -36,6 +38,8 @@ async function bootstrap() {
     allowedHeaders: 'Content-Type, Authorization',
     methods: 'GET, PUT, POST, DELETE, PATCH',
   });
-  await app.listen(3000);
+  const PORT = configService.get('PORT') ?? 3000;
+  await app.listen(PORT);
 }
-runInCluster(bootstrap);
+// runInCluster(bootstrap);
+bootstrap()
