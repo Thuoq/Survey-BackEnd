@@ -1,0 +1,1 @@
+export const GET_SURVEY_CACHE_KEY = "GET_SURVEY_CACHE"

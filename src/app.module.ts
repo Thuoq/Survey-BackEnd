@@ -27,6 +27,8 @@ import { AssignmentModule } from './assignment/assignment.module';
       JWT_EXPIRATION_TIME: Joi.string().required(),
       JWT_REFRESH_TOKEN_SECRET: Joi.string().required(),
       JWT_REFRESH_TOKEN_EXPIRATION_TIME: Joi.string().required(),
+      REDIS_HOST: Joi.string().required(),
+      REDIS_PORT: Joi.number().required(),
     })
   }),
   DatabaseModule,

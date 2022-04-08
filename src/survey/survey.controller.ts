@@ -3,10 +3,11 @@ import  JwtAuthGuard  from 'src/auth/jwt-auth.guard';
 import { ISurvey } from './dtos/survey.dto';
 import { ICreateSurvey } from './dtos/create-survey.dto';
 import { SurveyService } from './survey.service';
-import { Body, Controller, Delete, Get, Param, Patch, Post, UseGuards } from '@nestjs/common';
+import { Body, CacheInterceptor, CacheKey, Controller, Delete, Get, Param, Patch, Post, UseGuards, UseInterceptors } from '@nestjs/common';
 import {ApiTags ,ApiCookieAuth} from '@nestjs/swagger'
 import RoleGuard from 'src/auth/role.guard';
 import { UserRole } from 'src/common/userRole';
+import { GET_SURVEY_CACHE_KEY } from './survey.constant';
 
 @Controller('survey')
 @Serialize(ISurvey)
@@ -16,6 +17,8 @@ export class SurveyController {
   constructor( private readonly surveyService:SurveyService) {}
 
   @UseGuards(JwtAuthGuard)
+  @UseInterceptors(CacheInterceptor)
+  @CacheKey(GET_SURVEY_CACHE_KEY)
   @Get()
   async getAllSurvey():Promise<ISurvey[]> {
     return await this.surveyService.getAllSurvey()

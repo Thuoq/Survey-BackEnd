@@ -4,7 +4,7 @@ import { IUserDto } from './dtos/user.dto';
 import { ICreateUserDto } from './dtos/create-user.dto';
 import { UpdateUserDto } from './dtos/update-user.dto';
 import { UserService } from './user.service';
-import { Body, Controller, Get, Param, Patch, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Param, Patch, Post, UseGuards, Delete } from '@nestjs/common';
 import { Serialize } from 'src/interceptor/serialize.interceptor';
 import RoleGuard from 'src/auth/role.guard';
 import { UserRole } from 'src/common/userRole';
@@ -33,6 +33,10 @@ export class UserController {
   @Patch("/:id")
   async updateUser(@Param('id') id:string,@Body() body : UpdateUserDto):Promise<IUserDto> { 
     return await this.userService.update(id,body)
+  }
+  @Delete("/:id")
+  async deleteUser(@Param("id") id:string) { 
+    return await this.userService.deleteUser(id);
   }
 
   

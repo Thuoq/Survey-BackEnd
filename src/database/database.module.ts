@@ -3,7 +3,6 @@ import { Question } from './../question/question.entity';
 import { Category } from './../category/category.entity';
 import { Difficulty } from '../difficulty/difficulty.entity';
 import { Survey } from '../survey/survey.entity';
-import { RefreshToken } from '../common/refreshToken.entity';
 import { User } from '../user/user.entity';
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
@@ -25,7 +24,7 @@ import { UserQuestionAnswer } from 'src/common/user-question-answers.entity';
           password: configService.get('POSTGRES_PASSWORD'),
           database: configService.get('POSTGRES_DB'),
           entities: [
-            User,RefreshToken,Survey,Difficulty,Category,Question,Answer, Assignment,AssignmentDetail,UserQuestionAnswer
+            User,Survey,Difficulty,Category,Question,Answer, Assignment,AssignmentDetail,UserQuestionAnswer
           ],
           synchronize: true, 
         }

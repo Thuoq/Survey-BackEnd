@@ -1,17 +1,16 @@
-import { RefreshToken } from './../common/refreshToken.entity';
+// import { RefreshToken } from './../common/refreshToken.entity';
 import { ICreateUserDto } from './dtos/create-user.dto';
 
 import { User } from './user.entity';
 import { Injectable, NotFoundException, HttpException, HttpStatus } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import * as bcrypt from 'bcrypt';
+// import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class UserService {
   constructor(
     @InjectRepository(User) private repoUser: Repository<User>,
-    @InjectRepository(RefreshToken) private repoRefreshToken: Repository<RefreshToken>
   ) {
      
   }
@@ -49,36 +48,40 @@ export class UserService {
   //   const refreshToken =  this.repoRefreshToken.create({refreshToken:token,user:user.id.toString()})
   //   return await this.repoRefreshToken.save(refreshToken)
   // }
-  async setCurrentRefreshToken(refreshTokenStr: string, userId: string) {
-    try {
-      const hashToken = await bcrypt.hash(refreshTokenStr, 10);
-      await this.update(userId,{refreshToken:{refreshToken:hashToken}})
-    } catch(err) { 
-      console.error(err)
-    }
+  // async setCurrentRefreshToken(refreshTokenStr: string, userId: string) {
+  //   try {
+  //     const hashToken = await bcrypt.hash(refreshTokenStr, 10);
+  //     await this.update(userId,{refreshToken:{refreshToken:hashToken}})
+  //   } catch(err) { 
+  //     console.error(err)
+  //   }
    
-  }
-  async getUserIfRefreshTokenMatches(refreshToken:string, userId:string) {
-    const user = await this.findOneById(userId) 
+  // }
+  // async getUserIfRefreshTokenMatches(refreshToken:string, userId:string) {
+  //   const user = await this.findOneById(userId) 
     
-    const isRefreshTokenMatching = await bcrypt.compare(
-      refreshToken,
-      user.refreshToken.refreshToken
-    );
-    console.log(isRefreshTokenMatching)
-    if(isRefreshTokenMatching) { 
-      return user;
-    }
-  }
-  async removeRefreshToken(userId: string) {
-    const user = await this.findOneById(userId)
-    const refreshTokenId = user.refreshToken.id;
-    Object.assign(user,{refreshToken:null})
-    await this.repoUser.save(user)
-    await this.repoRefreshToken.delete({id:refreshTokenId});
+  //   const isRefreshTokenMatching = await bcrypt.compare(
+  //     refreshToken,
+  //     user.refreshToken.refreshToken
+  //   );
+  //   if(isRefreshTokenMatching) { 
+  //     return user;
+  //   }
+  // }
+  // async removeRefreshToken(userId: string) {
+  //   const user = await this.findOneById(userId)
+  //   const refreshTokenId = user.refreshToken.id;
+  //   Object.assign(user,{refreshToken:null})
+  //   await this.repoUser.save(user)
+  //   await this.repoRefreshToken.delete({id:refreshTokenId});
 
-    // return this.repoUser.update(userId, {
-    //   refreshToken: null
-    // });
+  //   // return this.repoUser.update(userId, {
+  //   //   refreshToken: null
+  //   // });
+  // }
+  async deleteUser(userId:string) { 
+    const user=  await this.findOneById(userId);
+    await this.repoUser.remove(user);
+    return;
   }
 }
