@@ -30,12 +30,6 @@ async function bootstrap() {
       persistAuthorization:true
     }
   })
-  // {
-  //   credentials:true,
-  //   origin:true,
-  //   allowedHeaders: 'Content-Type, Authorization',
-  //   methods: 'GET, PUT, POST, DELETE',
-  // }
   app.enableCors({
     credentials:true,
     origin:true,
