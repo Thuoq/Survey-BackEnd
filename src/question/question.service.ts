@@ -2,7 +2,7 @@ import { AnswerService } from './../answer/answer.service';
 import { DifficultyService } from 'src/difficulty/difficulty.service';
 import { CategoryService } from 'src/category/category.service';
 
-import { Injectable } from '@nestjs/common';
+import { Injectable, Param } from '@nestjs/common';
 import { IUpdateQuestion } from './dtos/update-question.dto';
 import { ICreateQuestion } from './dtos/create-question.dto';
 import { Question } from 'src/question/question.entity';
@@ -45,5 +45,11 @@ export class QuestionService {
   }
   async getAllQuestion() {
     return await this.repoQuestion.find()
+  }
+  async deleteQuestion( id:string) {
+    const question = await this.findAQuestion(id);
+    await this.repoQuestion.remove(question);
+    return;
+
   }
 }

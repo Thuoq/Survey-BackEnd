@@ -36,8 +36,9 @@ export class QuestionController {
   async updateQuestion(@Param("id") id:string,@Body() payload:IUpdateQuestion):Promise<IQuestion> {
     return await this.questionService.updateQuestion(id,payload);
   }
+  // issue need trigger indatabase calculator point number?
   @Delete("/:id")
-  async deleteQuestion() {
-    
+  async deleteQuestion(@Param('id') id:string):Promise<void> {
+     return this.questionService.deleteQuestion(id);
   }
 }
