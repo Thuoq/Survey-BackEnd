@@ -30,7 +30,7 @@ import { JwtModule } from '@nestjs/jwt';
       store: redisStore,
       host:configService.get("REDIS_HOST"),
       port:configService.get("REDIS_PORT"),
-      ttl:120
+      ttl:configService.get('JWT_EXPIRATION_TIME')
     })
   })],
   // exports:[AuthService]

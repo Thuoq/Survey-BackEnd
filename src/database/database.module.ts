@@ -10,6 +10,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { Answer } from 'src/answer/answer.entity';
 import { Assignment } from 'src/assignment/assignment.entity';
 import { UserQuestionAnswer } from 'src/common/user-question-answers.entity';
+import DatabaseLogger from 'src/logger/databaseLogger';
 @Module({
   imports: [
     TypeOrmModule.forRootAsync({
@@ -27,6 +28,8 @@ import { UserQuestionAnswer } from 'src/common/user-question-answers.entity';
             User,Survey,Difficulty,Category,Question,Answer, Assignment,AssignmentDetail,UserQuestionAnswer
           ],
           synchronize: true, 
+          logger: new DatabaseLogger(),
+
         }
       }
     }),

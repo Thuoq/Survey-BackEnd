@@ -1,11 +1,10 @@
 import { LogInDto } from './dtos/logIn.dto';
-import { UserService } from '../user/user.service';
 import { IUserDto } from '../user/dtos/user.dto';
 import { Serialize } from 'src/interceptor/serialize.interceptor';
 import { LocalAuthenticationGuard } from './localAuth.guard';
 import { AuthService } from './auth.service';
 import { ICreateUserDto } from '../user/dtos/create-user.dto';
-import { Controller, HttpCode, Post, UseGuards, Body, Req, Res, Get } from '@nestjs/common';
+import { Controller, HttpCode, Post, UseGuards, Body, Req, Get } from '@nestjs/common';
 import RequestWithUser from './requestWithUser.interface';
 import { ApiTags,ApiBody } from '@nestjs/swagger'
 import JwtAuthGuard from './jwt-auth.guard';
@@ -15,7 +14,7 @@ import JwtRefreshGuard from './jwt-refresh.guard';
 @Serialize(IUserDto)
 @ApiTags("authentication")
 export class AuthController {
-  constructor(private readonly AuthService: AuthService,private readonly userService: UserService ) {}
+  constructor(private readonly AuthService: AuthService ) {}
   @UseGuards(JwtRefreshGuard)
   @Get('refresh')
   refresh(@Req() request: RequestWithUser):IUserDto {

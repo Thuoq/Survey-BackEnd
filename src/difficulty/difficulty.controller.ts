@@ -5,7 +5,7 @@ import  JwtAuthGuard  from 'src/auth/jwt-auth.guard';
 import { IUpdateDifficulty } from './dtos/update-difficulty.dto';
 import { ApiTags, ApiCookieAuth } from '@nestjs/swagger';
 import { DifficultyService } from './difficulty.service';
-import { Controller, Get, Post, Body, Delete, Param, Patch, UseGuards } from '@nestjs/common';
+import { Controller, Get, Post, Body, Delete, Param, Patch, UseGuards, ParseUUIDPipe } from '@nestjs/common';
 import { ICreateDifficulty } from './dtos/create-difficulty.dto';
 
 @Controller('difficulty')
@@ -26,16 +26,16 @@ export class DifficultyController {
     return await this.difficultyService.createDifficulty(payload)
   }
   @Delete("/:id")
-  async deleteDifficulty(@Param('id') id:string):Promise<void> {
+  async deleteDifficulty(@Param('id',new ParseUUIDPipe({version:'4'})) id:string):Promise<void> {
     return await this.difficultyService.deleteDifficulty(id)
   }
   @Patch("/:id")
-  async updateDifficulty(@Param("id") id:string, @Body() payload:IUpdateDifficulty):Promise<IDifficulty> {
+  async updateDifficulty(@Param("id",new ParseUUIDPipe({version:'4'})) id:string, @Body() payload:IUpdateDifficulty):Promise<IDifficulty> {
     return await this.difficultyService.updateDifficulty(id,payload); 
   }
 
   @Get("/:id")
-  async getADifficulty(@Param("id") id:string):Promise<IDifficulty> {
+  async getADifficulty(@Param("id",new ParseUUIDPipe({version:'4'})) id:string):Promise<IDifficulty> {
     return await this.difficultyService.getADifficulty(id);
   }
 }
