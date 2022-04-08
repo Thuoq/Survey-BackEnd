@@ -11,13 +11,14 @@ import { CategoryModule } from './category/category.module';
 import { QuestionModule } from './question/question.module';
 import { AnswerModule } from './answer/answer.module';
 import * as Joi from '@hapi/joi';
+import { AssignmentModule } from './assignment/assignment.module';
 
 @Module({
-  imports:  [ QuestionModule, AuthModule, SurveyModule, DifficultyModule, UserModule, CategoryModule,
+  imports:  [ AssignmentModule, AuthModule, SurveyModule, DifficultyModule, UserModule, CategoryModule,
   ConfigModule.forRoot({
     validationSchema: Joi.object({
       POSTGRES_HOST: Joi.string().required(),
-      POSTGRES_PORT: Joi.number().required(),
+      POSTGRES_PORT: Joi.number().required(), 
       POSTGRES_USER: Joi.string().required(),
       POSTGRES_PASSWORD: Joi.string().required(),
       POSTGRES_DB: Joi.string().required(),

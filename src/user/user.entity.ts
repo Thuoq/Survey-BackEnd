@@ -38,7 +38,7 @@ export class User {
   @JoinColumn()
   refreshToken: RefreshToken;
 
-  @OneToMany(() => Assignment,(assignment:Assignment) => assignment.owner )
+  @OneToMany(() => Assignment,(assignment:Assignment) => assignment.owner)
   assignments: Assignment[]
   // surveys:Survey
 }

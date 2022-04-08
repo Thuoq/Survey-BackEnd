@@ -1,6 +1,7 @@
+import { UserQuestionAnswer } from 'src/common/user-question-answers.entity';
 import { Question } from 'src/question/question.entity';
 import { Versioning } from "src/common/version.entity";
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn,JoinColumn } from "typeorm";
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn,JoinColumn,OneToOne } from "typeorm";
 
 @Entity()
 export class Answer { 
@@ -14,5 +15,7 @@ export class Answer {
   })
   @JoinColumn()
   question:Question;
-  
+  @OneToOne((type) => UserQuestionAnswer,(userQuestionAnswer:UserQuestionAnswer) => userQuestionAnswer.choiceAnswer)
+  @JoinColumn()
+  userQuestionAnswer: UserQuestionAnswer
 }

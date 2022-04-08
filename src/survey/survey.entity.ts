@@ -16,13 +16,16 @@ export class Survey {
   difficulty: Difficulty
   @ManyToMany((type) => Question,(q:Question) => q.surveys, {
     cascade:true,
+    eager:true
   })
   @JoinTable()
   questions: Question[]
-  // @ManyToOne(() => User,(user:User) => user.surveys)
-  // owner: User
-  @ManyToOne(() => Category,(category:Category) => category.surveys)
+  
+  @ManyToOne(() => Category,(category:Category) => category.surveys, {
+    eager:true
+  })
   category: Category
   @OneToMany(() => Assignment,(assignment:Assignment) => assignment.survey)
+  
   assignments:Assignment[]
 }
