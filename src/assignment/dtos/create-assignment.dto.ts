@@ -1,7 +1,6 @@
-import { IsString } from "class-validator";
+import { IsUUID } from "class-validator";
 
 export class ICreateAssignment { 
-
-  @IsString()
+  @IsUUID()
   surveyId: string;
 }

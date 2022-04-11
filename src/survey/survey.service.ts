@@ -3,11 +3,11 @@ import { ICreateSurvey } from './dtos/create-survey.dto';
 import { DifficultyService } from 'src/difficulty/difficulty.service';
 import { CategoryService } from 'src/category/category.service';
 import { Survey } from './survey.entity';
-import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
+import { Injectable, HttpException, HttpStatus, Inject, CACHE_MANAGER } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { string } from '@hapi/joi';
-
+import { GET_SURVEY_CACHE_KEY } from './survey.constant';
+import {Cache } from 'cache-manager'
 @Injectable()
 export class SurveyService {
   
@@ -15,7 +15,8 @@ export class SurveyService {
     @InjectRepository(Survey) private readonly repoSurvey:Repository<Survey>,
     private readonly categoryService:CategoryService,
     private readonly difficultyService: DifficultyService,
-    private readonly questionService: QuestionService ) {}
+    private readonly questionService: QuestionService,
+    @Inject(CACHE_MANAGER) private cacheManager:Cache ) {}
 
   async findOneSurvey(id:string) {
     const survey = this.repoSurvey.findOne({where:{id}})
@@ -34,7 +35,11 @@ export class SurveyService {
     const questions = await Promise.all(questionsPromise)
     const survey = this.repoSurvey.create({name:payload.name,category,difficulty,questions})
     await this.repoSurvey.save(survey);
+    await this.clearCacheSurvey()
     return survey;
+  }
+  async clearCacheSurvey() { 
+    await this.cacheManager.del(GET_SURVEY_CACHE_KEY)
   }
   async getAllSurvey() {
     return await this.repoSurvey.find()

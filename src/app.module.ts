@@ -1,6 +1,6 @@
 import { DatabaseModule } from './database/database.module';
 import { ConfigModule } from '@nestjs/config';
-import { Module } from '@nestjs/common';
+import { MiddlewareConsumer, Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { AuthModule } from './auth/auth.module';
@@ -12,6 +12,7 @@ import { QuestionModule } from './question/question.module';
 import { AnswerModule } from './answer/answer.module';
 import * as Joi from '@hapi/joi';
 import { AssignmentModule } from './assignment/assignment.module';
+import LogsMiddleware from './logger/logger.midleware';
 
 @Module({
   imports:  [ AssignmentModule, AuthModule, SurveyModule, DifficultyModule, UserModule, CategoryModule,
@@ -27,6 +28,8 @@ import { AssignmentModule } from './assignment/assignment.module';
       JWT_EXPIRATION_TIME: Joi.string().required(),
       JWT_REFRESH_TOKEN_SECRET: Joi.string().required(),
       JWT_REFRESH_TOKEN_EXPIRATION_TIME: Joi.string().required(),
+      REDIS_HOST: Joi.string().required(),
+      REDIS_PORT: Joi.number().required(),
     })
   }),
   DatabaseModule,
@@ -36,4 +39,8 @@ import { AssignmentModule } from './assignment/assignment.module';
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule {}
+export class AppModule {
+  configure(consumer:MiddlewareConsumer) { 
+    consumer.apply(LogsMiddleware).forRoutes("*")
+  }
+}

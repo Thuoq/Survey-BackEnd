@@ -1,10 +1,10 @@
-import { IsArray, IsString } from 'class-validator';
+import { IsArray, IsUUID } from 'class-validator';
 export class ICreateUserQuestionAnswer { 
-  @IsString()
+  @IsUUID()
   choice_id:string;
 }
 export class ICreateAssignmentDetail { 
-  @IsString()
+  @IsUUID()
   questionId:string;
   @IsArray()
   userQuestionAnswers: ICreateUserQuestionAnswer[]

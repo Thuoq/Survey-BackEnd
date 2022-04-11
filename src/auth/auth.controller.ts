@@ -1,11 +1,10 @@
 import { LogInDto } from './dtos/logIn.dto';
-import { UserService } from '../user/user.service';
 import { IUserDto } from '../user/dtos/user.dto';
 import { Serialize } from 'src/interceptor/serialize.interceptor';
 import { LocalAuthenticationGuard } from './localAuth.guard';
 import { AuthService } from './auth.service';
 import { ICreateUserDto } from '../user/dtos/create-user.dto';
-import { Controller, HttpCode, Post, UseGuards, Body, Req, Res, Get } from '@nestjs/common';
+import { Controller, HttpCode, Post, UseGuards, Body, Req, Get } from '@nestjs/common';
 import RequestWithUser from './requestWithUser.interface';
 import { ApiTags,ApiBody } from '@nestjs/swagger'
 import JwtAuthGuard from './jwt-auth.guard';
@@ -15,12 +14,12 @@ import JwtRefreshGuard from './jwt-refresh.guard';
 @Serialize(IUserDto)
 @ApiTags("authentication")
 export class AuthController {
-  constructor(private readonly AuthService: AuthService,private readonly userService: UserService ) {}
+  constructor(private readonly AuthService: AuthService ) {}
   @UseGuards(JwtRefreshGuard)
   @Get('refresh')
   refresh(@Req() request: RequestWithUser):IUserDto {
     const accessTokenCookie = this.AuthService.getCookieWithJwtAccessToken(request.user.id);
- 
+    
     request.res.setHeader('Set-Cookie', accessTokenCookie);
     return request.user;
   }
@@ -39,8 +38,8 @@ export class AuthController {
     const {user} = request;
 
     const accessTokenCookie = this.AuthService.getCookieWithJwtAccessToken(user.id);
-    const refreshTokenCookie = this.AuthService.getCookieWithJwtRefreshToken(user.id);
-    await this.userService.setCurrentRefreshToken(refreshTokenCookie.token, user.id);
+    const refreshTokenCookie = await this.AuthService.getCookieWithJwtRefreshToken(user.id);
+    await this.AuthService.setTokenRefreshIntoRedis(user.id,refreshTokenCookie.token);
     request.res.setHeader('Set-Cookie', [accessTokenCookie, refreshTokenCookie.cookie]);
     return user;
   }
@@ -55,7 +54,7 @@ export class AuthController {
   @Post('logout')
   async logOut(@Req() request: RequestWithUser):Promise<void> {
   
-    await this.userService.removeRefreshToken(request.user.id);
+    await this.AuthService.removeRefreshTokenRedis(request.user.id);
     request.res.setHeader('Set-Cookie', this.AuthService.getCookiesForLogOut());
   }
 }
