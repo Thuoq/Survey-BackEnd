@@ -1,3 +1,4 @@
+import { IUpdateSurvey } from './dtos/update-survey.dto';
 import { HttpCacheInterceptor } from './../interceptor/httpCache.interceptor';
 import { Serialize } from 'src/interceptor/serialize.interceptor';
 import  JwtAuthGuard  from 'src/auth/jwt-auth.guard';
@@ -40,7 +41,9 @@ export class SurveyController {
   @UseGuards(RoleGuard(UserRole.ADMIN))
   @UseGuards(JwtAuthGuard)
   @Patch("/:id")
-  patchSurvey(@Param("id",new ParseUUIDPipe({version:'4'})) id:string ) {}
+  patchSurvey(@Param("id",new ParseUUIDPipe({version:'4'})) id:string, @Body() payload:IUpdateSurvey ) {
+    this.surveyService.patchSurveyById(id,payload);
+  }
   
   @UseGuards(RoleGuard(UserRole.ADMIN))
   @UseGuards(JwtAuthGuard)

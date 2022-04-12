@@ -43,7 +43,7 @@ export class DifficultyService {
       throw new HttpException('Something went wrong', HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
-  async updateDifficulty(id:string, payload:IUpdateDifficulty) { 
+  async updateDifficulty(id:string, payload:Partial< IUpdateDifficulty>) { 
     const difficulty = await this.findOneDifficulty(id)
     Object.assign(difficulty,payload)
     await this.difficultyRepo.save(difficulty)

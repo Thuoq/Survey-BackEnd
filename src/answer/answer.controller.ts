@@ -30,7 +30,7 @@ export class AnswerController {
     return await this.answerService.createAnswer(payload)
   }
   @Patch("/:id")
-  async updateAnswer(@Param('id',new ParseUUIDPipe({version:'4'})) id:string,@Body() attrs:IUpdateAnswer): Promise<IAnswer> {
+  async updateAnswer(@Param('id',new ParseUUIDPipe({version:'4'})) id:string,@Body() attrs: Partial<IUpdateAnswer>): Promise<IAnswer> {
     return await this.answerService.updateAnswer(id,attrs);
   }
   @Delete("/:id") 
