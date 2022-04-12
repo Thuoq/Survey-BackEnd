@@ -4,11 +4,12 @@ import { Serialize } from 'src/interceptor/serialize.interceptor';
 import { LocalAuthenticationGuard } from './localAuth.guard';
 import { AuthService } from './auth.service';
 import { ICreateUserDto } from '../user/dtos/create-user.dto';
-import { Controller, HttpCode, Post, UseGuards, Body, Req, Get } from '@nestjs/common';
+import { Controller, HttpCode, Post, UseGuards, Body, Req, Get, Res } from '@nestjs/common';
 import RequestWithUser from './requestWithUser.interface';
 import { ApiTags,ApiBody } from '@nestjs/swagger'
 import JwtAuthGuard from './jwt-auth.guard';
 import JwtRefreshGuard from './jwt-refresh.guard';
+import { response } from 'express';
 
 @Controller('auth')
 @Serialize(IUserDto)
@@ -55,6 +56,7 @@ export class AuthController {
   async logOut(@Req() request: RequestWithUser):Promise<void> {
   
     await this.AuthService.removeRefreshTokenRedis(request.user.id);
+ 
     request.res.setHeader('Set-Cookie', this.AuthService.getCookiesForLogOut());
   }
 }
