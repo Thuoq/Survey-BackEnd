@@ -33,7 +33,7 @@ export class QuestionController {
     return await this.questionService.createQuestion(payload)
   }
   @Patch("/:id")
-  async updateQuestion(@Param("id",new ParseUUIDPipe({version:'4'})) id:string,@Body() payload:IUpdateQuestion):Promise<IQuestion> {
+  async updateQuestion(@Param("id",new ParseUUIDPipe({version:'4'})) id:string,@Body() payload:Partial<IUpdateQuestion>):Promise<IQuestion> {
     return await this.questionService.updateQuestion(id,payload);
   }
   // issue need trigger indatabase calculator point number?

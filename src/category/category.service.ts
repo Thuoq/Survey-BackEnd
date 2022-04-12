@@ -41,7 +41,7 @@ export class CategoryService {
   async getAllCategory() {
     return await this.repoCategory.find()
   }
-  async updateCategory(id:string, attrs: IUpdateCategory) {
+  async updateCategory(id:string, attrs: Partial<IUpdateCategory>) {
     const category = await this.findOneById(id)
     Object.assign(category,attrs)
     

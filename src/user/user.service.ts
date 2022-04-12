@@ -5,6 +5,7 @@ import { User } from './user.entity';
 import { Injectable, NotFoundException, HttpException, HttpStatus } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+import { UpdateUserDto } from './dtos/update-user.dto';
 // import * as bcrypt from 'bcrypt';
 
 @Injectable()
@@ -37,48 +38,13 @@ export class UserService {
   async getAllUser() {
     return await  this.repoUser.find()
   }
-  async update(id:string , attrs) {
+  async update(id:string , attrs:Partial<UpdateUserDto>) {
     
     const user = await this.findOneById(id)
     Object.assign(user,attrs)
    
     return this.repoUser.save(user)
   }
-  // async createRefreshToken(token:string, user:User) { 
-  //   const refreshToken =  this.repoRefreshToken.create({refreshToken:token,user:user.id.toString()})
-  //   return await this.repoRefreshToken.save(refreshToken)
-  // }
-  // async setCurrentRefreshToken(refreshTokenStr: string, userId: string) {
-  //   try {
-  //     const hashToken = await bcrypt.hash(refreshTokenStr, 10);
-  //     await this.update(userId,{refreshToken:{refreshToken:hashToken}})
-  //   } catch(err) { 
-  //     console.error(err)
-  //   }
-   
-  // }
-  // async getUserIfRefreshTokenMatches(refreshToken:string, userId:string) {
-  //   const user = await this.findOneById(userId) 
-    
-  //   const isRefreshTokenMatching = await bcrypt.compare(
-  //     refreshToken,
-  //     user.refreshToken.refreshToken
-  //   );
-  //   if(isRefreshTokenMatching) { 
-  //     return user;
-  //   }
-  // }
-  // async removeRefreshToken(userId: string) {
-  //   const user = await this.findOneById(userId)
-  //   const refreshTokenId = user.refreshToken.id;
-  //   Object.assign(user,{refreshToken:null})
-  //   await this.repoUser.save(user)
-  //   await this.repoRefreshToken.delete({id:refreshTokenId});
-
-  //   // return this.repoUser.update(userId, {
-  //   //   refreshToken: null
-  //   // });
-  // }
   async deleteUser(userId:string) { 
     const user=  await this.findOneById(userId);
     await this.repoUser.remove(user);

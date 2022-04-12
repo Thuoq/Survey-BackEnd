@@ -30,7 +30,7 @@ export class DifficultyController {
     return await this.difficultyService.deleteDifficulty(id)
   }
   @Patch("/:id")
-  async updateDifficulty(@Param("id",new ParseUUIDPipe({version:'4'})) id:string, @Body() payload:IUpdateDifficulty):Promise<IDifficulty> {
+  async updateDifficulty(@Param("id",new ParseUUIDPipe({version:'4'})) id:string, @Body() payload: Partial<IUpdateDifficulty>):Promise<IDifficulty> {
     return await this.difficultyService.updateDifficulty(id,payload); 
   }
 

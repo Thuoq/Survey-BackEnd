@@ -38,7 +38,7 @@ export class QuestionService {
      await this.repoQuestion.save(newQuestion)
     return newQuestion;
   }
-  async updateQuestion(id:string, payload:IUpdateQuestion) {
+  async updateQuestion(id:string, payload: Partial<IUpdateQuestion>) {
     const question = await this.findAQuestion(id)
     Object.assign(question,payload)
     return await this.repoQuestion.save(question);

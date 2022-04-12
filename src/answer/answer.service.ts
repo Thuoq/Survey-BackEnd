@@ -26,7 +26,7 @@ export class AnswerService {
     const answer = await this.repoAnswer.create(payload)
     return await this.repoAnswer.save(answer);
   }
-  async updateAnswer(id:string, attrs:IUpdateAnswer) {
+  async updateAnswer(id:string, attrs: Partial<IUpdateAnswer>) {
     
     const answer = await this.findOneAnswerById(id)
     Object.assign(answer,attrs)

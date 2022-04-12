@@ -31,7 +31,7 @@ export class CategoryController {
   @UseGuards(RoleGuard(UserRole.ADMIN))
   @UseGuards(JwtAuthGuard)
   @Patch("/:id")
-  async updateCategory(@Param("id",new ParseUUIDPipe({version:'4'})) id:string,@Body() attrs: IUpdateCategory):Promise<ICategory> {
+  async updateCategory(@Param("id",new ParseUUIDPipe({version:'4'})) id:string,@Body() attrs: Partial<IUpdateCategory>):Promise<ICategory> {
   
     return await this.categoryService.updateCategory(id,attrs);
   }

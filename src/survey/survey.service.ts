@@ -8,6 +8,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { GET_SURVEY_CACHE_KEY } from './survey.constant';
 import {Cache } from 'cache-manager'
+import { IUpdateSurvey } from './dtos/update-survey.dto';
 @Injectable()
 export class SurveyService {
   
@@ -51,6 +52,7 @@ export class SurveyService {
   async getAllSurvey(name:string ='' ) {
     return await this.repoSurvey.createQueryBuilder("survey")
     .innerJoinAndSelect("survey.difficulty","difficulty")
+    .innerJoinAndSelect("survey.questions","question")
     .innerJoinAndSelect("survey.category","category", "category.name LIKE :n", {n:`%${name}%`})
     .getMany()
   }
@@ -62,5 +64,8 @@ export class SurveyService {
     const survey = await this.findOneSurvey(id);
     await this.repoSurvey.remove(survey)
     return;
+  }
+  async patchSurveyById(id:string, attrs: Partial<IUpdateSurvey>) {
+    console.log(attrs);
   }
 }
