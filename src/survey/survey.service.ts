@@ -25,6 +25,7 @@ export class SurveyService {
     }
     return survey;
   }
+  
   async createSurvey(payload:ICreateSurvey) {
     const category = await this.categoryService.finOneByName(payload.category)
     const difficulty = await this.difficultyService.findOneDifficultyByName(payload.difficulty)
@@ -39,10 +40,19 @@ export class SurveyService {
     return survey;
   }
   async clearCacheSurvey() { 
-    await this.cacheManager.del(GET_SURVEY_CACHE_KEY)
+    const keys: string[] = await this.cacheManager.store.keys();
+    keys.forEach((key) => {
+      if (key.startsWith(GET_SURVEY_CACHE_KEY)) {
+        this.cacheManager.del(key);
+      }
+    })
   }
-  async getAllSurvey() {
-    return await this.repoSurvey.find()
+    
+  async getAllSurvey(name:string ='' ) {
+    return await this.repoSurvey.createQueryBuilder("survey")
+    .innerJoinAndSelect("survey.difficulty","difficulty")
+    .innerJoinAndSelect("survey.category","category", "category.name LIKE :n", {n:`%${name}%`})
+    .getMany()
   }
   async getOneSurveyById(id:string) {
     return await this.findOneSurvey(id);
