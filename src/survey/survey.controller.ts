@@ -41,7 +41,7 @@ export class SurveyController {
   @UseGuards(RoleGuard(UserRole.ADMIN))
   @UseGuards(JwtAuthGuard)
   @Patch("/:id")
-  patchSurvey(@Param("id",new ParseUUIDPipe({version:'4'})) id:string, @Body() payload:IUpdateSurvey ) {
+  patchSurvey(@Param("id",new ParseUUIDPipe({version:'4'})) id:string, @Body() payload: IUpdateSurvey ) {
     this.surveyService.patchSurveyById(id,payload);
   }
   
