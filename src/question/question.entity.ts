@@ -31,9 +31,8 @@ export class Question {
     onDelete:"CASCADE"
   })
   surveys:Survey[]
-  @OneToOne((type) => AssignmentDetail)
-  @JoinColumn()
-  assignmentDetail: AssignmentDetail
+  @OneToMany((type) => AssignmentDetail, (assignmentDetail:AssignmentDetail) =>assignmentDetail.question)
+  assignmentDetail: AssignmentDetail[]
   @OneToMany(() => Answer , (ans: Answer) => ans.question , {
     eager:true,
     cascade:true,

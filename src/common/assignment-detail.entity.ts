@@ -12,7 +12,7 @@ export class AssignmentDetail {
   @ManyToOne((type) => Assignment,(assignment:Assignment) => assignment.assignmentDetails,{ onDelete:"CASCADE" })
   assignment: Assignment;
 
-  @OneToOne((type) => Question)
+  @ManyToOne((type) => Question)
   question: Question; 
   
   @OneToMany(()=> UserQuestionAnswer,(userQuestionAnswer:UserQuestionAnswer) =>userQuestionAnswer.assignmentDetail , { 
