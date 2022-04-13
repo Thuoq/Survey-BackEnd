@@ -8,6 +8,10 @@
 6. Rồi run `npm run start:dev` để khởi động server
 7. Vào trang `http://localhost:3000/api/` để xem api chi tiết
 
+## Đây là cấu trúc database
+
+![Image database structure](./imageData.png 'Image data')
+
 ## License
 
 Nest is [MIT licensed](LICENSE).
