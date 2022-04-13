@@ -27,6 +27,7 @@ export class AssignmentService {
     return assignment;
   }
   async getAllAssignmentByUser(user: {id:string,role:string}) {
+    
     if(user.role === UserRole.ADMIN) {
       return await this.repoAssignment.find()
     }else { 

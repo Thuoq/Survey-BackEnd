@@ -51,6 +51,7 @@ export class SurveyService {
   async getAllSurvey(name:string ='' ) {
     return await this.repoSurvey.createQueryBuilder("survey")
     .innerJoinAndSelect("survey.difficulty","difficulty")
+    .innerJoinAndSelect("survey.questions","question")
     .innerJoinAndSelect("survey.category","category", "category.name LIKE :n", {n:`%${name}%`})
     .getMany()
   }
