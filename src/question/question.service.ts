@@ -14,8 +14,7 @@ import { Repository } from 'typeorm';
 export class QuestionService {
    constructor(@InjectRepository(Question) private readonly  repoQuestion: Repository<Question>,
     private readonly categoryService: CategoryService,
-              private readonly difficultyService: DifficultyService,
-              private readonly answerService: AnswerService) {}
+    private readonly difficultyService: DifficultyService) {}
 
   async findAQuestion(id:string) {
     const question  = await this.repoQuestion.findOne({where:{id}})
