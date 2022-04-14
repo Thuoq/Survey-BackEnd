@@ -1,8 +1,8 @@
-import { Question } from 'src/question/question.entity';
+import { Question } from '../question/question.entity';
 import { Category } from './../category/category.entity';
 import { Difficulty } from './../difficulty/difficulty.entity';
-import { Column, Entity, OneToMany, ManyToOne, OneToOne, PrimaryGeneratedColumn,ManyToMany, JoinTable } from "typeorm";
-import { Assignment } from 'src/assignment/assignment.entity';
+import { Column, Entity, OneToMany, ManyToOne, PrimaryGeneratedColumn,ManyToMany, JoinTable } from "typeorm";
+import { Assignment } from "../assignment/assignment.entity";
 
 @Entity()
 export class Survey { 

@@ -1,7 +1,7 @@
 
-import { Versioning } from 'src/common/version.entity';
+import { Versioning } from './version.entity';
 import { ManyToOne } from 'typeorm';
-import { Answer } from 'src/answer/answer.entity';
+import { Answer } from '../answer/answer.entity';
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 import { AssignmentDetail } from './assignment-detail.entity';
 

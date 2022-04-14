@@ -1,6 +1,6 @@
-import { Question } from 'src/question/question.entity';
+import { Question } from '../question/question.entity';
 import { Survey } from './../survey/survey.entity';
-import { Versioning } from "src/common/version.entity";
+import { Versioning } from "../common/version.entity";
 import { Column, Entity, PrimaryGeneratedColumn ,OneToMany, ManyToMany} from "typeorm";
 
 @Entity()

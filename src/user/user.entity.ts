@@ -1,10 +1,10 @@
 import { Versioning } from './../common/version.entity';
 import { UserRole } from '../common/userRole';
-import { BeforeInsert, Column, Entity, JoinColumn, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import { BeforeInsert, Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { Exclude } from 'class-transformer';
 
 import {hash} from 'bcrypt'
-import { Assignment } from 'src/assignment/assignment.entity';
+import { Assignment } from "../assignment/assignment.entity";
 @Entity()
 export class User { 
   @PrimaryGeneratedColumn("uuid") id: string 

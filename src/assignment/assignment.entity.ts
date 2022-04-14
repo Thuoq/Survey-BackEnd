@@ -1,9 +1,9 @@
 import { OneToMany } from 'typeorm';
-import { Survey } from 'src/survey/survey.entity';
+import { Survey } from '../survey/survey.entity';
 import { User } from './../user/user.entity';
 import { Column, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 import { Entity } from 'typeorm';
-import { AssignmentDetail } from 'src/common/assignment-detail.entity';
+import { AssignmentDetail } from '../common/assignment-detail.entity';
 
 
 @Entity()

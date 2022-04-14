@@ -1,6 +1,6 @@
-import { UserQuestionAnswer } from 'src/common/user-question-answers.entity';
-import { Question } from 'src/question/question.entity';
-import { Versioning } from "src/common/version.entity";
+import { UserQuestionAnswer } from '../common/user-question-answers.entity';
+import { Question } from '../question/question.entity';
+import { Versioning } from "../common/version.entity";
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn,JoinColumn,OneToMany } from "typeorm";
 
 @Entity()

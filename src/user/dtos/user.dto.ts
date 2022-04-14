@@ -1,5 +1,5 @@
 import { Expose } from "class-transformer";
-import { UserRole } from "src/common/userRole";
+import { UserRole } from "../../common/userRole";
 import {ApiProperty} from '@nestjs/swagger'
 export class IUserDto { 
   // @Expose()

@@ -1,8 +1,8 @@
-import { Versioning } from 'src/common/version.entity';
+import { Versioning } from './version.entity';
 import { UserQuestionAnswer } from "./user-question-answers.entity";
-import { Assignment } from "src/assignment/assignment.entity";
-import { Question } from "src/question/question.entity";
-import { Entity, JoinColumn, PrimaryGeneratedColumn,ManyToOne, Column,OneToOne, OneToMany } from "typeorm";
+import { Assignment } from "../assignment/assignment.entity";
+import { Question } from "../question/question.entity";
+import { Entity, PrimaryGeneratedColumn,ManyToOne, Column, OneToMany } from "typeorm";
 
 @Entity()
 export class AssignmentDetail { 

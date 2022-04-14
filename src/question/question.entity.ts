@@ -1,10 +1,10 @@
-import { Answer } from 'src/answer/answer.entity';
-import { Survey } from 'src/survey/survey.entity';
+import { Answer } from '../answer/answer.entity';
+import { Survey } from '../survey/survey.entity';
 import { Category } from './../category/category.entity';
 import { Difficulty } from './../difficulty/difficulty.entity';
-import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn ,ManyToMany, JoinTable, OneToOne, JoinColumn} from "typeorm";
-import { Versioning } from 'src/common/version.entity';
-import { AssignmentDetail } from 'src/common/assignment-detail.entity';
+import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn ,ManyToMany, JoinTable} from "typeorm";
+import { Versioning } from '../common/version.entity';
+import { AssignmentDetail } from '../common/assignment-detail.entity';
 
 @Entity()
 export class Question { 

@@ -1,13 +1,13 @@
-import JwtAuthGuard  from 'src/auth/jwt-auth.guard';
+import JwtAuthGuard  from '../auth/jwt-auth.guard';
 import { ApiTags, ApiCookieAuth } from '@nestjs/swagger';
 import { IUserDto } from './dtos/user.dto';
 import { ICreateUserDto } from './dtos/create-user.dto';
 import { UpdateUserDto } from './dtos/update-user.dto';
 import { UserService } from './user.service';
 import { Body, Controller, Get, Param, Patch, Post, UseGuards, Delete, ParseUUIDPipe } from '@nestjs/common';
-import { Serialize } from 'src/interceptor/serialize.interceptor';
-import RoleGuard from 'src/auth/role.guard';
-import { UserRole } from 'src/common/userRole';
+import { Serialize } from '../interceptor/serialize.interceptor';
+import RoleGuard from '../auth/role.guard';
+import { UserRole } from '../common/userRole';
 
 @Controller('user')
 @UseGuards(RoleGuard(UserRole.ADMIN))

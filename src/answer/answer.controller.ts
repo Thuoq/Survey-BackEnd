@@ -1,4 +1,4 @@
-import { Serialize } from 'src/interceptor/serialize.interceptor';
+import { Serialize } from '../interceptor/serialize.interceptor';
 import { IUpdateAnswer } from './dtos/update-answer.dto';
 import { IAnswer } from './dtos/answer.dto';
 import { ICreateAnswer } from './dtos/create-answer.dto';
